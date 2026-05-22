@@ -19,7 +19,7 @@ router.post('/upload', authMiddleware, requireRole('admin', 'editor'), upload.si
     return;
   }
 
-  const taskId = importZip(req.file.path, parseInt(library_id, 10), title);
+  const taskId = importZip(req.file.path, parseInt(String(library_id), 10), title);
   res.json({ task_id: taskId });
 });
 
@@ -35,7 +35,7 @@ router.post('/download', authMiddleware, requireRole('admin', 'editor'), async (
 });
 
 router.get('/tasks/:id', authMiddleware, (req: AuthRequest, res) => {
-  const task = getTask(req.params.id);
+  const task = getTask(req.params.id as string);
   if (!task) {
     res.status(404).json({ error: '任务不存在' });
     return;

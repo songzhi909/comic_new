@@ -21,7 +21,7 @@ router.put('/:id/role', authMiddleware, requireRole('admin'), (req: AuthRequest,
 });
 
 router.delete('/:id', authMiddleware, requireRole('admin'), (req: AuthRequest, res) => {
-  const { id } = req.params;
+  const id = req.params.id as string;
   if (parseInt(id, 10) === req.user!.id) {
     res.status(400).json({ error: '不能删除自己' });
     return;

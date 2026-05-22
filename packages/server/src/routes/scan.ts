@@ -5,7 +5,7 @@ import { scanLibrary } from '../services/scanner.js';
 const router = Router();
 
 router.post('/:id/scan', authMiddleware, requireRole('admin'), (req: AuthRequest, res) => {
-  const { id } = req.params;
+  const id = req.params.id as string;
   try {
     const result = scanLibrary(parseInt(id, 10));
     res.json(result);

@@ -10,4 +10,5 @@ const db = new Database(config.dbPath);
 db.pragma('journal_mode = WAL');
 db.pragma('foreign_keys = ON');
 
+export type { Database };
 export default db;

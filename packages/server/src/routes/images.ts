@@ -48,8 +48,9 @@ router.get('/:id/thumbnail', authMiddleware, async (req: AuthRequest, res) => {
 });
 
 router.get('/:id/pages/:num', authMiddleware, async (req: AuthRequest, res) => {
-  const { id, num } = req.params;
-  const { width } = req.query;
+  const id = req.params.id as string;
+  const num = req.params.num as string;
+  const width = req.query.width as string | undefined;
   const comic = db.prepare('SELECT * FROM comics WHERE id = ?').get(id) as any;
   if (!comic) {
     res.status(404).json({ error: '漫画不存在' });
@@ -69,7 +70,7 @@ router.get('/:id/pages/:num', authMiddleware, async (req: AuthRequest, res) => {
   }
 
   const imagePath = path.join(comic.path, images[pageIndex]);
-  await serveImage(res, imagePath, width as string | undefined);
+  await serveImage(res, imagePath, width);
 });
 
 router.get('/:id/episodes/:epId/thumbnail', authMiddleware, async (req: AuthRequest, res) => {
@@ -92,8 +93,9 @@ router.get('/:id/episodes/:epId/thumbnail', authMiddleware, async (req: AuthRequ
 });
 
 router.get('/:id/episodes/:epId/pages/:num', authMiddleware, async (req: AuthRequest, res) => {
-  const { epId, num } = req.params;
-  const { width } = req.query;
+  const epId = req.params.epId as string;
+  const num = req.params.num as string;
+  const width = req.query.width as string | undefined;
   const episode = db.prepare('SELECT * FROM episodes WHERE id = ?').get(epId) as any;
   if (!episode) {
     res.status(404).json({ error: '集数不存在' });
@@ -108,7 +110,7 @@ router.get('/:id/episodes/:epId/pages/:num', authMiddleware, async (req: AuthReq
   }
 
   const imagePath = path.join(episode.path, images[pageIndex]);
-  await serveImage(res, imagePath, width as string | undefined);
+  await serveImage(res, imagePath, width);
 });
 
 export default router;

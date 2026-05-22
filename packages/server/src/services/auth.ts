@@ -54,8 +54,8 @@ export function register(username: string, password: string, inviteCode: string)
 
   return {
     token,
-    user: { id: result.lastInsertRowid as number, username, password_hash: '', role: code.role },
-  };
+    user: { id: result.lastInsertRowid as number, username, role: code.role },
+  } as any;
 }
 
 export function getUserFromToken(token: string): User | null {
