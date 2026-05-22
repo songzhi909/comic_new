@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  comic-reader:
+    build: .
+    container_name: comic-reader
+    ports:
+      - "3000:3000"
+    volumes:
+      - comic-data:/root/.comic-reader
+      # 挂载你的漫画目录（按需修改）
+      # - /path/to/your/comics:/comics
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - JWT_SECRET=your-secret-key-change-this
+      - ADMIN_PASSWORD=admin123
+    restart: unless-stopped
+
+volumes:
+  comic-data:

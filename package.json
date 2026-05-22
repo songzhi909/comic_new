@@ -5,6 +5,13 @@
     "dev": "pnpm --filter './packages/**' dev",
     "dev:server": "pnpm --filter server dev",
     "dev:client": "pnpm --filter client dev",
-    "build": "pnpm --filter './packages/**' build"
+    "build": "bash scripts/build.sh",
+    "build:win": "scripts\\build.bat",
+    "start": "bash scripts/start.sh",
+    "start:win": "scripts\\start.bat",
+    "docker:build": "docker build -t comic-reader .",
+    "docker:run": "docker run -p 3000:3000 -v comic-data:/root/.comic-reader comic-reader",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down"
   }
 }
